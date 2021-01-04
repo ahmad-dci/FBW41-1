@@ -22,6 +22,9 @@ window.onload = () => {
         search()
     })
 
+
+    const resultDiv = document.querySelector('#resultDiv');
+
     // search function
 
     function search() {
@@ -31,9 +34,24 @@ window.onload = () => {
         
             // check response code
             if (response.status === 200) {
+                // response.text().then(data => {
+                //     console.log(data);
+                // })
                 response.json().then(data => {
                     // data to deal with
-                    console.log(data);
+                    console.log(data.hits);
+                    let cardsElement = '';
+                    data.hits.forEach(hit => {
+                        cardsElement += `<div class="card pr-1 col-md-3" >
+                        <img class="card-img-top" src="${hit.previewURL}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">${hit.user}</h5>
+                            <p class="card-text">${hit.tags}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>`
+                    });
+                    resultDiv.innerHTML = cardsElement;
                 }).catch(error => {
                     console.log(error);
                 })
