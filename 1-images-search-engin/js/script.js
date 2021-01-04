@@ -6,7 +6,7 @@ window.onload = () => {
 
     // add key up event listener
     searchInput.addEventListener('keyup', e => {
-        if(e.keyCode === 13) {
+        if (e.keyCode === 13) {
             // call search function here
             search()
         }
@@ -25,13 +25,16 @@ window.onload = () => {
 
     const resultDiv = document.querySelector('#resultDiv');
 
+    // get select color element
+    const selectColor = document.querySelector('#colorSelect')
     // search function
-
     function search() {
         const keyWord = searchInput.value
-        const url = 'https://pixabay.com/api/?key=12000491-41fc68d8c365df909e022ceb6&q=' + keyWord
+        const url = 'https://pixabay.com/api/?key=12000491-41fc68d8c365df909e022ceb6&q=' + keyWord + 
+        (selectColor.value ? '&colors=' + selectColor.value : '')
+
         fetch(url).then(response => {
-        
+
             // check response code
             if (response.status === 200) {
                 // response.text().then(data => {
@@ -47,7 +50,7 @@ window.onload = () => {
                         <div class="card-body">
                             <h5 class="card-title">${hit.user}</h5>
                             <p class="card-text">${hit.tags}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="#" class="btn btn-primary" onclick="showModal('${hit.largeImageURL}')">Show</a>
                         </div>
                     </div>`
                     });
@@ -58,7 +61,7 @@ window.onload = () => {
             } else {
                 console.log(response.status);
             }
-        
+
 
         }).catch(error => {
             console.log(error);
@@ -67,4 +70,16 @@ window.onload = () => {
     }
 
 
+
+
+
+
+}
+/**
+     * show image modal
+     * @param {String} imageUrl 
+     */
+function showModal(imageUrl) {
+    $('#imageModal').modal('show');
+    document.querySelector('#largImage').src = imageUrl
 }

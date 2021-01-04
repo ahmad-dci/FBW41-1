@@ -22,6 +22,31 @@
                     <input id="searchInput" type="text" class="form-control" placeholder="" aria-label=""
                         aria-describedby="basic-addon1">
                 </div>
+
+                <div class="input-group mb-3 mt-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="colorSelect">Colors</label>
+                    </div>
+                    <select class="form-control" id="colorSelect">
+                        <option selected value="">Choose...</option>
+                        <option value="grayscale">grayscale</option>
+                        <option value="transparent">transparent</option>
+                        <option value="red">red</option>
+                        <option value="orange">orange</option>
+                        <option value="yellow">yellow</option>
+                        <option value="green">green</option>
+                        <option value="turquoise">turquoise</option>
+                        <option value="blue">blue</option>
+                        <option value="lilac">lilac</option>
+                        <option value="pink">pink</option>
+                        <option value="white">white</option>
+                        <option value="gray">gray</option>
+                        <option value="black">black</option>
+                        <option value="brown">brown</option>
+                    </select>
+                </div>
+
+
             </div>
         </div>
         <div class="row" id="resultDiv">
@@ -36,7 +61,7 @@
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div> -->
-            
+
 
 
 
@@ -46,13 +71,14 @@
 
     <!-- larg image modal -->
 
-    <div id="imageModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="imageModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            ...
-          </div>
+            <div class="modal-content">
+                <img id="largImage" class="img-fluid" src="" alt="">
+            </div>
         </div>
-      </div>
+    </div>
 
 
     <!-- js -->
