@@ -40,6 +40,12 @@ window.onload = () => {
     // get next button
     const nextBtn = document.querySelector('#nextBtn')
 
+    // get prev button
+    const prevBtn = document.querySelector('#prevBtn')
+
+    // get pagging navbar
+    const paggingNav = document.querySelector('#paggingNav')
+
     // add event listener to selectColor so it will run search after changing the color DIRECTLY
     selectColor.addEventListener(`change`, () => {
         search();
@@ -75,9 +81,31 @@ window.onload = () => {
           search()
       }) 
 
+      // add click event listener to prev button 
+      prevBtn.addEventListener('click', e => {
+          e.preventDefault()
+          let pageNum = parseInt(pageNumInput.value)
+          pageNumInput.value = pageNum - 1
+          search()
+      })
+
+
+      // the following variable represent about the number of search result
+      let resultNumber = 0;
 
     // search function
     function search() {
+
+
+
+        // check page number value and active or disable prev button 
+        if (parseInt(pageNumInput.value) > 1) {
+            prevBtn.parentElement.classList.remove('disabled')
+        } else {
+            prevBtn.parentElement.classList.add('disabled')
+        }
+
+
         const keyWord = searchInput.value
         const url = 'https://pixabay.com/api/?key=12000491-41fc68d8c365df909e022ceb6&q=' + keyWord + 
         (selectColor.value ? '&colors=' + selectColor.value : '') +
@@ -95,6 +123,14 @@ window.onload = () => {
                 response.json().then(data => {
                     // data to deal with
                     console.log(data);
+
+                    resultNumber = data.total
+                    if (resultNumber > parseInt(selectPerPage.value)) {
+                        paggingNav.classList.remove('d-none')
+                    } else {
+                        paggingNav.classList.add('d-none')
+                    }
+
                     let cardsElement = '';
                     data.hits.forEach(hit => {
                         cardsElement += `<div class="card pr-1 col-md-3" >
