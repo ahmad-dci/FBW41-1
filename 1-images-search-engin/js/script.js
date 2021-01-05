@@ -7,10 +7,19 @@ window.onload = () => {
     // add key up event listener
     searchInput.addEventListener('keyup', e => {
         if (e.keyCode === 13) {
+
+            // reset pagging to 1
+            pageNumInput.value = 1
+
             // call search function here
             search()
         }
     })
+
+    // add focus event to search input so it will be cleared
+    searchInput.addEventListener('focus', () => {
+        searchInput.value = ''
+    }) 
 
 
     //get search button
@@ -18,6 +27,8 @@ window.onload = () => {
 
     // add click event on search button
     searchBtn.addEventListener('click', () => {
+        // reset pagging to 1
+        pageNumInput.value = 1
         // call search function here
         search()
     })
@@ -124,6 +135,17 @@ window.onload = () => {
                     // data to deal with
                     console.log(data);
 
+                    // disable / enable next button
+                    const pagesNumber = Math.ceil( data.total / parseInt(selectPerPage.value) )
+                    //console.log(pagesNumber);
+
+                    if (pagesNumber <= parseInt(pageNumInput.value)) {
+                        nextBtn.parentElement.classList.add('disabled')
+                    } else {
+                        nextBtn.parentElement.classList.remove('disabled')
+                    }
+
+                    // show / hide pagging navbar
                     resultNumber = data.total
                     if (resultNumber > parseInt(selectPerPage.value)) {
                         paggingNav.classList.remove('d-none')
