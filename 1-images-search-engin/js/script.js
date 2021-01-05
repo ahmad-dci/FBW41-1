@@ -31,14 +31,22 @@ window.onload = () => {
     // get select category element
     const selectCategory = document.querySelector('#categorySelect')
 
+    // get select per page element
+    const selectPerPage = document.querySelector('#perPageSelect')
 
-    // addevent listener to selectColor so it will run search after changing the color DIRECTLY
+
+    // add event listener to selectColor so it will run search after changing the color DIRECTLY
     selectColor.addEventListener(`change`, () => {
         search();
       });
 
-      // addevent listener to selectCategory so it will run search after changing the category DIRECTLY
+      // add event listener to selectCategory so it will run search after changing the category DIRECTLY
       selectCategory.addEventListener(`change`, () => {
+        search();
+      });
+
+      // add event listener to selectPerPage so it will run search after changing the Per Page DIRECTLY
+      selectPerPage.addEventListener(`change`, () => {
         search();
       });
 
@@ -47,7 +55,8 @@ window.onload = () => {
         const keyWord = searchInput.value
         const url = 'https://pixabay.com/api/?key=12000491-41fc68d8c365df909e022ceb6&q=' + keyWord + 
         (selectColor.value ? '&colors=' + selectColor.value : '') +
-        (selectCategory.value ? '&category=' + selectCategory.value : '') 
+        (selectCategory.value ? '&category=' + selectCategory.value : '') +
+        (selectPerPage.value ? '&per_page=' + selectPerPage.value : '')
 
         fetch(url).then(response => {
 
@@ -58,7 +67,7 @@ window.onload = () => {
                 // })
                 response.json().then(data => {
                     // data to deal with
-                    console.log(data.hits);
+                    console.log(data);
                     let cardsElement = '';
                     data.hits.forEach(hit => {
                         cardsElement += `<div class="card pr-1 col-md-3" >
