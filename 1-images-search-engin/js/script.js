@@ -59,16 +59,22 @@ window.onload = () => {
 
     // add event listener to selectColor so it will run search after changing the color DIRECTLY
     selectColor.addEventListener(`change`, () => {
+        // reset pagging to 1
+        pageNumInput.value = 1
         search();
       });
 
       // add event listener to selectCategory so it will run search after changing the category DIRECTLY
       selectCategory.addEventListener(`change`, () => {
+          // reset pagging to 1
+        pageNumInput.value = 1
         search();
       });
 
       // add event listener to selectPerPage so it will run search after changing the Per Page DIRECTLY
       selectPerPage.addEventListener(`change`, () => {
+          // reset pagging to 1
+        pageNumInput.value = 1
         search();
       });
 
