@@ -37,6 +37,9 @@ window.onload = () => {
     // get page number Input 
     const pageNumInput = document.querySelector('#pageNumInp')
 
+    // get next button
+    const nextBtn = document.querySelector('#nextBtn')
+
     // add event listener to selectColor so it will run search after changing the color DIRECTLY
     selectColor.addEventListener(`change`, () => {
         search();
@@ -64,6 +67,13 @@ window.onload = () => {
           search()
       })
 
+      // add click event listener for next Button
+      nextBtn.addEventListener('click', e => {
+          e.preventDefault();
+          let pageNum = parseInt(pageNumInput.value) ;
+          pageNumInput.value = pageNum + 1;
+          search()
+      }) 
 
 
     // search function
