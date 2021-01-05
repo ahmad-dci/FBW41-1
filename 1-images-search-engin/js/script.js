@@ -34,6 +34,8 @@ window.onload = () => {
     // get select per page element
     const selectPerPage = document.querySelector('#perPageSelect')
 
+    // get page number Input 
+    const pageNumInput = document.querySelector('#pageNumInp')
 
     // add event listener to selectColor so it will run search after changing the color DIRECTLY
     selectColor.addEventListener(`change`, () => {
@@ -50,13 +52,28 @@ window.onload = () => {
         search();
       });
 
+      // add keyup event listener to page number input
+      pageNumInput.addEventListener('keyup', e => {
+          if (e.keyCode === 13) {
+              search()
+          }
+      })
+
+      // add change event listener to page number input
+      pageNumInput.addEventListener('change', () => {
+          search()
+      })
+
+
+
     // search function
     function search() {
         const keyWord = searchInput.value
         const url = 'https://pixabay.com/api/?key=12000491-41fc68d8c365df909e022ceb6&q=' + keyWord + 
         (selectColor.value ? '&colors=' + selectColor.value : '') +
         (selectCategory.value ? '&category=' + selectCategory.value : '') +
-        (selectPerPage.value ? '&per_page=' + selectPerPage.value : '')
+        (selectPerPage.value ? '&per_page=' + selectPerPage.value : '') +
+        (pageNumInput.value ? '&page=' + pageNumInput.value : '')
 
         fetch(url).then(response => {
 
