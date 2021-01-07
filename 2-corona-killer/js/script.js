@@ -14,7 +14,7 @@ container.addEventListener('mousemove', e => {
 // create array to save corona objects 
 const coronaArr = [];
 
-
+// interval to generate coronDivs
 setInterval(() => {
 
 // get container width
@@ -47,6 +47,8 @@ coronaArr.push(coronaObj)
 }, 1000)
 
 
+let lost = 0;
+
 
 // create interval to move the coronaDivs down by increasing the top property on them style
 setInterval(() => {
@@ -64,17 +66,43 @@ setInterval(() => {
             container.removeChild(element.coronaElement);
             // delete the element from the array
             coronaArr.splice(idx, 1);
+            lost++;
+            pointsDiv.innerHTML = 'Score: ' + score + ' ||| Lost:' + lost;
+
         } else {
-            element.top += 10;
+            element.top += 10; // element.top = element.top + 10;
             element.coronaElement.style.top = element.top + 'px';
         }
         
     })
 }, 50);
 
-// create click event listener for container to create the bullet
+// create bullet sound
+let bulletSound = document.createElement('audio')
+bulletSound.src = './sounds/bullet.wav';
+bulletSound.setAttribute('controls', 'none');
+bulletSound.setAttribute('preload', 'auto');
+bulletSound.style.display = 'none';
+bulletSound.volume = 0.1;
+container.append(bulletSound);
 
+// create game sound
+let gameSound = document.createElement('audio')
+gameSound.src = './sounds/game.mp3';
+gameSound.setAttribute('controls', 'none');
+gameSound.setAttribute('preload', 'auto');
+gameSound.style.display = 'none';
+gameSound.volume = 0.1;
+gameSound.loop = true;
+container.append(gameSound);
+
+
+// create click event listener for container to create the bullet
 container.addEventListener('click', e => {
+    //play gameSound
+    gameSound.play();
+    // play bulletSound
+    bulletSound.play();
 
     //create bullet html element
     const bulletDiv = document.createElement('div');
@@ -115,6 +143,16 @@ container.addEventListener('click', e => {
 })
 
 
+// create explosion sound
+let explosionSound = document.createElement('audio')
+explosionSound.src = './sounds/explosion.wav';
+explosionSound.setAttribute('controls', 'none');
+explosionSound.setAttribute('preload', 'auto');
+explosionSound.style.display = 'none';
+explosionSound.volume = 0.1;
+container.append(explosionSound);
+
+let score = 0;
 // explode function to detect if bulletDiv touch  a coronaDiv
 function explode (bulletElement, interval) {
 
@@ -126,6 +164,9 @@ function explode (bulletElement, interval) {
             container.removeChild(bulletElement);
             coronaArr.splice(idx, 1);
             container.removeChild(corona.coronaElement);
+            score++; // score = score + 1;  score +=1;
+            pointsDiv.innerHTML = 'Score: ' + score + ' ||| Lost:' + lost;
+            explosionSound.play();
 
 
         }

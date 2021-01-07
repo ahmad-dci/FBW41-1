@@ -46,3 +46,9 @@ body{
     background-color: white;
     bottom: 100px;
 }
+
+#pointsDiv{
+background-color: rgba(255, 255, 255, 0.747);
+font-size: 50px;
+height: 50px;
+}
