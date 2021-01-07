@@ -92,16 +92,69 @@ container.addEventListener('click', e => {
     // set the start bottom for the bulletDiv
     let bottom = 100;
 
+    // get container height
+    let containerHeight = container.offsetHeight;
+
     // create set interval to make the bullets move to top
     const interval = setInterval(() => {
-        bottom += 25;
-        bulletDiv.style.bottom = bottom + 'px';
-        // check the bullet is outside the container so we need to delete the bullet div and kill the interval
         
+        // check the bullet is outside the container so we need to delete the bullet div and kill the interval
+        if (bottom > containerHeight) {
+            clearInterval(interval);
+            container.removeChild(bulletDiv);
+            
+        } else {
+            bottom += 25;
+            bulletDiv.style.bottom = bottom + 'px';
+            // call explode function to detect if bulletDiv touch  a coronaDiv
+            explode(bulletDiv, interval);
+        }
+
     }, 50);
     
 })
 
+
+// explode function to detect if bulletDiv touch  a coronaDiv
+function explode (bulletElement, interval) {
+
+    // loop through coronaArr 
+    coronaArr.forEach((corona, idx) => {
+        // check if coronaElement is in the same areawith the bulletElement
+        if (is_colliding(bulletElement, corona.coronaElement)) {
+            clearInterval(interval);
+            container.removeChild(bulletElement);
+            coronaArr.splice(idx, 1);
+            container.removeChild(corona.coronaElement);
+
+
+        }
+    })
+}
+
+
+
+
+var is_colliding = function( $div1, $div2 ) {
+	// Div 1 data
+	//var d1_offset             = $div1.offset();
+	var d1_height             = $div1.offsetHeight;
+	var d1_width              = $div1.offsetWidth;
+	var d1_distance_from_top  = $div1.offsettop + d1_height;
+	var d1_distance_from_left = $div1.offsetLeft + d1_width;
+
+	// Div 2 data
+	//var d2_offset             = $div2.offset();
+	var d2_height             = $div2.offsetHeight;
+	var d2_width              = $div2.offsetWidth;
+	var d2_distance_from_top  = $div2.offsetTop + d2_height;
+	var d2_distance_from_left = $div2.offsetLeft + d2_width;
+
+	var not_colliding = ( d1_distance_from_top < $div2.offsetTop || $div1.offsetTop > d2_distance_from_top || d1_distance_from_left < $div2.offsetLeft || $div1.offsetLeft > d2_distance_from_left );
+
+	// Return whether it IS colliding
+	return ! not_colliding;
+};
 
 
 
