@@ -72,6 +72,36 @@ setInterval(() => {
     })
 }, 50);
 
+// create click event listener for container to create the bullet
+
+container.addEventListener('click', e => {
+
+    //create bullet html element
+    const bulletDiv = document.createElement('div');
+
+    // set class to bullet div
+    bulletDiv.classList.add('bullet');
+
+    // set left position for bulletDiv
+    bulletDiv.style.left = e.clientX + 'px';
+
+    // add bulletDiv to container
+    container.append(bulletDiv);
+
+
+    // set the start bottom for the bulletDiv
+    let bottom = 100;
+
+    // create set interval to make the bullets move to top
+    const interval = setInterval(() => {
+        bottom += 25;
+        bulletDiv.style.bottom = bottom + 'px';
+        // check the bullet is outside the container so we need to delete the bullet div and kill the interval
+        
+    }, 50);
+    
+})
+
 
 
 
